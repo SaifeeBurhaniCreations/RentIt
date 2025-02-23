@@ -1,0 +1,37 @@
+:root {
+    --rounded-sm: 4px;
+    --rounded-md: 8px;
+    --rounded-lg: 12px;
+    --rounded-xl: 16px;
+    --rounded-2xl: 20px;
+    --rounded-3xl: 24px;
+    --rounded-full: 100%;
+}
+
+.rounded-sm {
+    border-radius: var(--rounded-sm) !important;
+}
+
+.rounded-md {
+    border-radius: var(--rounded-md) !important;
+}
+
+.rounded-lg {
+    border-radius: var(--rounded-lg) !important;
+}
+
+.rounded-xl {
+    border-radius: var(--rounded-xl) !important;
+}
+
+.rounded-2xl {
+    border-radius: var(--rounded-2xl) !important;
+}
+
+.rounded-3xl {
+    border-radius: var(--rounded-3xl) !important;
+}
+
+.rounded-full {
+    border-radius: var(--rounded-full) !important;
+}
