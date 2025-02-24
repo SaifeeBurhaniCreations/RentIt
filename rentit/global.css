@@ -8,10 +8,13 @@
 
 :root{
     --primary-color: #F48120;
-    --primary-light-color: #FEF2E9;
+    --primary-light-color: rgba(244, 129, 32, 0.10);
+    --light-color: #FEF2E9;
     --white-color: #FFFFFF;
     --gray-color: #828282;
     --gray-700-color: #4F4F4F;
+    --gray-light-color: rgba(0, 0, 0, 0.05);
+    --black-color: rgba(0, 0, 0, 0.85);
 }
 
 
@@ -29,6 +32,9 @@
 .text-white {
   color: var(--white-color) !important;
 }
+.text-black {
+  color: var(--black-color) !important;
+}
 .bg-white {
   background-color: var(--white-color) !important;
 }
@@ -40,12 +46,28 @@
   background-color: var(--primary-color) !important;
 }
 
+.bg-primary-light {
+  background-color: var(--primary-light-color) !important;
+}
+.bg-gray-25 {
+  background-color: var(--gray-color) !important;
+}
+.bg-gray-light {
+  background-color: var(--gray-light-color) !important;
+}
+.border {
+  border-width: 1px !important;
+}
+.border-primary {
+  border-color: var(--primary-color) !important;
+}
+
 .bg-primary-disabled {
   background-color: rgba(244, 194, 154, 0.5) !important;
 }
 
-.bg-primary-light {
-  background-color : var(--primary-light-color);
+.bg-light {
+  background-color : var(--light-color);
 stroke-width: 8px;
 stroke: rgba(244, 129, 32, 0.03);
 }

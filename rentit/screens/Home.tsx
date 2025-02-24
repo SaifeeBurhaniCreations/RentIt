@@ -5,14 +5,17 @@ import HomeHeader from '@/shared/home/HomeHeader';
 import RecenlyPosted from '@/shared/home/RecenlyPosted';
 import CuratedRentalProperty from '@/shared/home/CuratedRentalProperty';
 import HomeByFurnishing from '@/shared/home/HomeByFurnishing';
+import { useState } from 'react';
+import Filter from '@/shared/home/Filter';
 
 const Home = () => {
     const navigation = useNavigation();
+    const [showDrawer, setShowDrawer] = useState(true)
 
     return (
         <VStack space="3xl" style={styles.container}>
             {/* Root VStack space only apply between header and Recently posted */}
-            <HomeHeader navigation={navigation} />
+            <HomeHeader navigation={navigation} setShowDrawer={setShowDrawer} />
             <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
                 <VStack space="3xl">
                     <RecenlyPosted />
@@ -20,6 +23,7 @@ const Home = () => {
                     <HomeByFurnishing />
                 </VStack>
             </ScrollView>
+            <Filter drawerState={{showDrawer, setShowDrawer}} />
         </VStack>
     )
 }

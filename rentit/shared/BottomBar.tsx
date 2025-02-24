@@ -24,7 +24,7 @@ const BottomBar = () => {
                 <Text style={{ color: "#00000080" }}>Inbox</Text>
             </VStack>
             <VStack className="justify-center items-center">
-                <Box className="justify-center items-center bg-primary-light rounded-full" style={{
+                <Box className="justify-center items-center bg-light rounded-full" style={{
                     padding: 24,
                     position: "absolute",
                     bottom: 30,

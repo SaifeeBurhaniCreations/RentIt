@@ -27,7 +27,7 @@ export default function RootLayout() {
   }
   return (
     <GluestackUIProvider mode="light">
-      <Stack.Navigator initialRouteName="Inbox">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />

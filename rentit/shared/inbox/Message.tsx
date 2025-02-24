@@ -12,8 +12,10 @@ import {
 import { CheckIcon } from "@/components/ui/icon"
 import { useState } from "react"
 
-const Message = ({ message, isEditing }: { message: { title: string, description: string, sender: string, timestamp: string, id: number }, isEditing: boolean }) => {
+const Message = ({ message, isEditing, deleteState }: { message: { title: string, description: string, sender: string, timestamp: string, id: number }, isEditing: boolean, deleteState: { deletingInboxId: string[], setDeletingInboxId: (deletingInboxId: string[]) => void } }) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([])
+
+  const { deletingInboxId, setDeletingInboxId } = deleteState
 
   const handleCheckboxChange = () => {
     setSelectedItems((prev) =>

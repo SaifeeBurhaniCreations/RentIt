@@ -8,12 +8,18 @@ import { Box } from "@/components/ui/box";
 import { VStack } from "@/components/ui/vstack";
 import InboxCTA from "@/shared/inbox/InboxCTA";
 import { useState } from "react";
+import { deleteInbox } from "@/services/inbox.service"
 
 const { height } = Dimensions.get("window");
 
 const Inbox = () => {
   const [isEditing, setIsEditing] = useState(false)
+  const [deletingInboxId, setDeletingInboxId] = useState<string[]>([])
 
+    const handleDeleteMessage = async () => {
+        // const response = await deleteInbox(deletingInboxId)
+        console.log(deletingInboxId)
+    }
     // Declare static props for testing
     const messages = [
         {
@@ -53,14 +59,14 @@ const Inbox = () => {
 
         return (
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 24 }}>
-                {messages.map((message) => <Message key={message.id} message={message} isEditing={isEditing} />)}
+                {messages.map((message) => <Message key={message.id} message={message} isEditing={isEditing} deleteState={{ deletingInboxId, setDeletingInboxId }} />)}
             </ScrollView>
         )
     };
 
     return (
         <Box>
-            <SharedHeader editState={{isEditing, setIsEditing}} />
+            <SharedHeader editState={{ isEditing, setIsEditing }} deleteState={{ deletingInboxId, handleDeleteMessage }} />
             <VStack style={styles.container}>{renderContent()}</VStack>
             <InboxCTA />
         </Box>

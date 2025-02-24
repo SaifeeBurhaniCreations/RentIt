@@ -18,7 +18,7 @@ const propertyTypes = [
     { id: "6", name: "Other" },
 ];
 
-const HomeHeader = ({ navigation }: { navigation: any }) => {
+const HomeHeader = ({ navigation, setShowDrawer }: { navigation: any, setShowDrawer: (showDrawer: boolean) => void }) => {
     const [selectedProperty, setSelectedProperty] = useState(propertyTypes[0].name);
 
     return (
@@ -58,7 +58,7 @@ const HomeHeader = ({ navigation }: { navigation: any }) => {
                 )}
             />
             </VStack>
-            <Search />
+            <Search setShowDrawer={setShowDrawer} value="Indore" endIcon="filter" />
         </VStack>
     )
 }
