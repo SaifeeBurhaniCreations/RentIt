@@ -10,11 +10,10 @@ import Filter from '@/shared/home/Filter';
 
 const Home = () => {
     const navigation = useNavigation();
-    const [showDrawer, setShowDrawer] = useState(true)
-
+    const [showDrawer, setShowDrawer] = useState(false)
+   
     return (
         <VStack space="3xl" style={styles.container}>
-            {/* Root VStack space only apply between header and Recently posted */}
             <HomeHeader navigation={navigation} setShowDrawer={setShowDrawer} />
             <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
                 <VStack space="3xl">

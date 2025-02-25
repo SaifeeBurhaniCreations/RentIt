@@ -9,24 +9,20 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   const payload = req.body;
-  console.log(payload);
 
   try {
-    // const hashedPassword = await bcrypt.hash(payload.password, 10);
-    // payload.password = hashedPassword;
-
-
     const user = await userClient.create(payload);
     console.log(user);
     if (!user) return res.status(500).json({ message: "Server Error" });
 
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
-
+    console.log("accessToken", accessToken)
+    console.log("refreshToken", refreshToken)
     await refreshTokenClient.create({
       token: refreshToken,
-      userId: user.id,
-      expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
+      user_id: user.id,
+      expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
     });
 
     res.status(200).json({ accessToken, refreshToken });

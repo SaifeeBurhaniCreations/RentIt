@@ -4,7 +4,6 @@ import { Heading } from "@/components/ui/heading"
 import { HStack } from "@/components/ui/hstack"
 import Swiper from "./Swiper";
 const RecenlyPosted = () => {
-
     return (
         <VStack className="justify-center" space="xl" style={{ paddingHorizontal: 24 }}>
             <HStack className="justify-between items-start">

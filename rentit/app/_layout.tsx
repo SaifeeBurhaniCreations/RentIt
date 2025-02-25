@@ -12,10 +12,13 @@ import InboxScreen from "@/screens/Inbox";
 
 import { useFonts } from 'expo-font';
 import BottomBar from "@/shared/BottomBar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const Stack = createStackNavigator();
 
 export default function RootLayout() {
+  const queryClient = new QueryClient();
+  
   const [fontsLoaded] = useFonts({
     'GeneralSans-Regular': require('@/assets/fonts/OTF/GeneralSans-Regular.otf'),
     'GeneralSans-Medium': require('@/assets/fonts/OTF/GeneralSans-Medium.otf'),
@@ -27,7 +30,8 @@ export default function RootLayout() {
   }
   return (
     <GluestackUIProvider mode="light">
-      <Stack.Navigator initialRouteName="Home">
+      <QueryClientProvider client={queryClient}>
+      <Stack.Navigator initialRouteName="Register">
         <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
@@ -37,6 +41,7 @@ export default function RootLayout() {
         <Stack.Screen name="Inbox" component={InboxScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
       <BottomBar />
+      </QueryClientProvider>
     </GluestackUIProvider>
   );
 }

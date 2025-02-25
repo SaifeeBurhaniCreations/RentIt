@@ -15,4 +15,30 @@ export type RegisterTypes = {
   userType: string;
 };
 
+type Property = {
+  id: number;
+  title: string;
+  description: string;
+  price: string;
+  uploadedAt: string;
+  postedBy: string;
+  image: string;
+}
 
+export type RecentlyPostedData = {
+  recentProperties: Property[];
+}
+
+
+type PropertyType = {
+  id: number;
+  name: string;
+}
+
+export type PropertyTypeResponse = {
+  propertyTypes: PropertyType[];
+}
+
+export type NotificationResponse = {
+  notifications: any[]; 
+}
