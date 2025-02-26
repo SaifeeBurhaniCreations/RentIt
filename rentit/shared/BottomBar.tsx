@@ -12,7 +12,9 @@ import { VStack } from "@/components/ui/vstack";
 import { Pressable } from "react-native";
 import { Box } from "@/components/ui/box";
 
-const BottomBar = () => {
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+
+const BottomBar: React.FC<BottomTabBarProps> = () => {
     return (
         <HStack className="justify-between items-center bg-white" style={{ paddingHorizontal: 24, paddingVertical: 12, position: "relative" }}>
             <VStack className="justify-center items-center">

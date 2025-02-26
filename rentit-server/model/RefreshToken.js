@@ -26,9 +26,21 @@ const RefreshTokenSchema = sequelize.define("RefreshToken", {
     allowNull: false,
     field: "expires_at", 
   },
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: "created_at",
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+    field: "updated_at",
+  },
 },  {
-  modelName: "RefreshToken",
   tableName: "refresh_tokens",
+  schema: "RefreshToken",
   underscored: true, 
 });
 

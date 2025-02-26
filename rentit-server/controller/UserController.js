@@ -9,26 +9,28 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   const payload = req.body;
+  setTimeout(() => {
+    res.status(200).json({ payload });
+  }, 4000);
 
-  try {
-    const user = await userClient.create(payload);
-    console.log(user);
-    if (!user) return res.status(500).json({ message: "Server Error" });
+  // try {
+  //   const user = await userClient.create(payload);
+  //   if (!user) return res.status(500).json({ message: "Server Error" });
 
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
-    console.log("accessToken", accessToken)
-    console.log("refreshToken", refreshToken)
-    await refreshTokenClient.create({
-      token: refreshToken,
-      user_id: user.id,
-      expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
-    });
+  //   const accessToken = generateAccessToken(user);
+  //   const refreshToken = generateRefreshToken(user);
 
-    res.status(200).json({ accessToken, refreshToken });
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
+  //   await refreshTokenClient.create({
+  //     token: refreshToken,
+  //     userId: user.id,  
+  //     expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+  //   });
+
+  //   res.status(200).json({ accessToken, refreshToken });
+  // } catch (error) {
+  //   console.error("Error in register route:", error); 
+  //   res.status(500).json({ message: "Internal server error", error: error.message });
+  // }
 });
 
 router.post("/login", async (req, res) => {

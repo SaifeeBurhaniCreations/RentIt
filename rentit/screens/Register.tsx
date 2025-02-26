@@ -2,7 +2,7 @@ import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
 import { StyleSheet } from 'react-native';
 import { Heading } from '@/components/ui/heading';
-import { Button, ButtonText } from '@/components/ui/button';
+import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Link, LinkText } from '@/components/ui/link';
 import { HStack } from '@/components/ui/hstack';
 import {
@@ -35,7 +35,6 @@ import { CheckIcon, EyeOffIcon, EyeIcon } from "@/components/ui/icon"
 import { ChevronDownIcon } from "@/components/ui/icon"
 import { CircleIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input"
-import { Spinner } from "@/components/ui/spinner"
 import { ScrollView } from 'react-native';
 
 import { useState } from 'react';
@@ -47,6 +46,8 @@ import dialCodes from '@/json/dial_code.json';
 import { Box } from '@/components/ui/box';
 import { useNavigation } from '@react-navigation/native';
 import { registerUser } from '@/services/user.service';
+
+import colors from "tailwindcss/colors"
 const Register = () => {
   const [userType, setUserType] = useState('tenant');
   const [dialCode, setDialCode] = useState('');
@@ -73,7 +74,7 @@ const Register = () => {
 
     const response = await registerUser(data);
     console.log(response);
-
+    setIsLoading(false);
   };
 
   const loadMoreItems = () => {
@@ -286,6 +287,7 @@ const Register = () => {
       <VStack style={styles.linkContainer}>
 
         {
+
           isLoading ?
             (
               <Button
@@ -296,11 +298,15 @@ const Register = () => {
                 disabled={isSubmitting}
                 onPress={handleSubmit(onSubmit)}
               >
+                <ButtonSpinner color={colors.white} />
+
                 <ButtonText
-                  style={{ fontFamily: 'GeneralSans-Medium' }}
+                  style={{
+                    fontFamily: 'GeneralSans-Medium',
+                  }}
                   className="capitalize"
                 >
-                  <Spinner size="small" color={"var(--primary-color)"} /> Registering...
+                  Registering...
                 </ButtonText>
               </Button>
             ) :
