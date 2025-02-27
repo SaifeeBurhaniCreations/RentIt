@@ -26,6 +26,7 @@ const Swiper = () => {
     refetchOnReconnect: false,
     refetchOnMount: false,
     staleTime: 5 * 60 * 1000,
+    retry: 2,
     queryFn: fetchRecentlyPosted,
   });
 

@@ -14,6 +14,9 @@ import InboxScreen from "@/screens/Inbox";
 import { useFonts } from 'expo-font';
 import BottomBar from "@/shared/BottomBar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import useAuthToken from "@/hooks/useAuthToken";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
+import React from "react";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,33 +29,39 @@ function MainTabs() {
     </Tab.Navigator>
   );
 }
+
 export default function RootLayout() {
   const queryClient = new QueryClient();
-  
+  const { accessToken } = useAuthToken();
+
   const [fontsLoaded] = useFonts({
-    'GeneralSans-Regular': require('@/assets/fonts/OTF/GeneralSans-Regular.otf'),
-    'GeneralSans-Medium': require('@/assets/fonts/OTF/GeneralSans-Medium.otf'),
-    'GeneralSans-Bold': require('@/assets/fonts/OTF/GeneralSans-Bold.otf'),
+    "GeneralSans-Regular": require("@/assets/fonts/OTF/GeneralSans-Regular.otf"),
+    "GeneralSans-Medium": require("@/assets/fonts/OTF/GeneralSans-Medium.otf"),
+    "GeneralSans-Bold": require("@/assets/fonts/OTF/GeneralSans-Bold.otf"),
   });
 
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <GluestackUIProvider mode="light">
       <QueryClientProvider client={queryClient}>
-      <Stack.Navigator initialRouteName="Register">
-      <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Otp" component={OtpScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="AgreementSummary" component={AgreementSummaryScreen} options={{ headerShown: false }} />
-
-        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Inbox" component={InboxScreen} options={{ headerShown: false }} />
-      
-      </Stack.Navigator>
+        <View style={{ flex: 1 }}>
+          <Stack.Navigator initialRouteName={accessToken ? "Main" : "Login"}>
+            {accessToken ? (
+              <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
+            ) : (
+              <React.Fragment>
+                <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Otp" component={OtpScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="AgreementSummary" component={AgreementSummaryScreen} options={{ headerShown: false }} />
+              </React.Fragment>
+            )}
+          </Stack.Navigator>
+        </View>
       </QueryClientProvider>
     </GluestackUIProvider>
   );

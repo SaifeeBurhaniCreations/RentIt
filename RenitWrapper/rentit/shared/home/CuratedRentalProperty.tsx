@@ -19,6 +19,7 @@ const CuratedRentalProperty = () => {
         refetchOnReconnect: false,
         refetchOnMount: false,
         staleTime: 60 * 60 * 1000,
+        retry: 2,
         queryFn: fetchCuratedRentalProperty });
 
     if (isLoading) return <Spinner />;

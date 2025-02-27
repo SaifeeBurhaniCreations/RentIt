@@ -24,6 +24,7 @@ const HomeHeader = ({ navigation, setShowDrawer }: { navigation: any; setShowDra
     refetchOnReconnect: false,
     refetchOnMount: false,
     staleTime: 60 * 60 * 1000,
+    retry: 2,
     queryFn: fetchPropertyType,
   });
 
@@ -34,6 +35,7 @@ const HomeHeader = ({ navigation, setShowDrawer }: { navigation: any; setShowDra
     refetchOnReconnect: false,
     refetchOnMount: false,
     staleTime: 60 * 60 * 1000,
+    retry: 2,
     queryFn: () => fetchNotifications(userId),
   });
 

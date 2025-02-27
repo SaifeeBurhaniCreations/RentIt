@@ -46,7 +46,7 @@ import dialCodes from '@/json/dial_code.json';
 import { Box } from '@/components/ui/box';
 import { useNavigation } from '@react-navigation/native';
 import { registerUser } from '@/services/user.service';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from "tailwindcss/colors"
 const Register = () => {
   const [userType, setUserType] = useState('tenant');
@@ -59,7 +59,7 @@ const Register = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(RegisterSchema),
   });
@@ -67,6 +67,7 @@ const Register = () => {
   const navigation = useNavigation();
 
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
     data.userType = userType;
     data.dial_code = dialCode;
 
@@ -74,7 +75,15 @@ const Register = () => {
 
     const response = await registerUser(data);
     console.log(response);
-    setIsLoading(false);
+
+    if (response.status === 200) {
+      const storeData = {...response, expiry: new Date(Date.now() + 15 * 60 * 1000)};
+      await AsyncStorage.setItem('data', JSON.stringify(storeData));
+
+      navigation.navigate('Login' as never);
+      setIsLoading(false);
+      console.log(isLoading);
+    }
   };
 
   const loadMoreItems = () => {
@@ -253,8 +262,7 @@ const Register = () => {
             value={termsConditions}
             onChange={(keys) => {
               setTermsConditions(keys)
-            }}
-          >
+            }}>
             <VStack space="2xl">
               <Box>
                 <Checkbox value="newsletter" className='flex items-end'>
@@ -286,19 +294,15 @@ const Register = () => {
       </VStack>
       <VStack style={styles.linkContainer}>
 
-        {
-
-          isLoading ?
-            (
               <Button
                 size="md"
                 variant="solid"
                 action="default"
                 className={`${control._formValues.username && control._formValues.email && control._formValues.password && control._formValues.conf_password && control._formValues.phone ? 'bg-primary' : 'bg-primary-disabled'} w-full`}
-                disabled={isSubmitting}
+                disabled={isLoading === true ? true : false}
                 onPress={handleSubmit(onSubmit)}
               >
-                <ButtonSpinner color={colors.white} />
+                {isLoading ? <ButtonSpinner color={colors.white} /> : null}
 
                 <ButtonText
                   style={{
@@ -306,28 +310,9 @@ const Register = () => {
                   }}
                   className="capitalize"
                 >
-                  Registering...
+                  {isLoading ? 'Registering...' : 'Register'}
                 </ButtonText>
               </Button>
-            ) :
-            (
-              <Button
-                size="md"
-                variant="solid"
-                action="default"
-                className={`${control._formValues.username && control._formValues.email && control._formValues.password && control._formValues.conf_password && control._formValues.phone ? 'bg-primary' : 'bg-primary-disabled'} w-full`}
-                disabled={isSubmitting}
-                onPress={handleSubmit(onSubmit)}
-              >
-                <ButtonText
-                  style={{ fontFamily: 'GeneralSans-Medium' }}
-                  className="capitalize"
-                >
-                  Register
-                </ButtonText>
-              </Button>
-            )
-        }
 
 
         <HStack className="items-center gap-2">
